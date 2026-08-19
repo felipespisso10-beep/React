@@ -1,9 +1,39 @@
-function AddTasks(){
+import { useState } from "react"
+
+function AddTasks({onAddTaskSubmit}){
+    const [title, setTitle] = useState("")
+    const [description, setDescription] = useState("")
+    console.log(title,description)
     return (
         <div className="space-y-4 bg-slate-200 p-6 rounded-md shadow flex flex-col">
-            <input type="text" placeholder="Digite o título da tarefa"/>
-            <input type="text" placeholder="Digite o descrição da tarefa"/>
-            <button>Adicionar</button>
+
+            <input 
+            type="text" 
+            placeholder="Digite o título da tarefa" 
+            className="border border-slate-300 outline-slate-400 px-4 py-2 rounded-md"
+            value={title}
+            onChange={(event) => setTitle(event.target.value)}
+            />
+
+
+            <input type="text" 
+            placeholder="Digite o descrição da tarefa" 
+            className="border border-slate-300 outline-slate-400 px-4 py-2 rounded-md"
+            value={description}
+            onChange={(event) => setDescription(event.target.value)}
+            />
+
+
+            <button onClickCapture={() => {
+
+                if(!title.trim() || !description.trim()){
+                    return alert("Preencha os formularios")
+                }
+                onAddTaskSubmit(title,description) 
+            }}  
+            className=" bg-slate-500 text-white px-4 py-2 rounded-md font-medium">
+                Adicionar
+            </button>
         </div>
     )
 }
